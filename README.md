@@ -18,6 +18,7 @@ Run **Algorithms.html** to start the project.
 
 ## 👥 Contributor
 - [Anshul](https://github.com/anshul-dying) - Developer and creator
+- [Jayesh](https://github.com/Thrasher2210) - Contributer
 ---
 
 👨‍💻 Developed for learning and exploring various tree data structures.
