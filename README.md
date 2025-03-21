@@ -16,6 +16,8 @@ Run **Algorithms.html** to start the project.
 ✅ Supports multiple tree data structures (BST, AVL, B-Tree, etc.)  
 ✅ Easy-to-use web-based interface  
 
+## 👥 Contributor
+- [Anshul](https://github.com/anshul-dying) - Developer and creator
 ---
 
 👨‍💻 Developed for learning and exploring various tree data structures.
