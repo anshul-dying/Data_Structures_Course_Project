@@ -23,6 +23,6 @@ Run **Algorithms.html** to start the project.
 ---
 
 # Test Website
-- `https://anshul-dying.github.io/Data_Structures_Course_Project/Algorithms.html`
+- [Click_Here](https://anshul-dying.github.io/Data_Structures_Course_Project/Algorithms.html)
 
 👨‍💻 Developed for learning and exploring various tree data structures.
