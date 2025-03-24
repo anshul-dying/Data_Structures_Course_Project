@@ -2,45 +2,106 @@
 <html>
 
 <head>
-	<title>Red-Black Tree Visualization</title>
-	<link rel="stylesheet" href="visualizationPageStyle.css">
-	<link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
-	<script src="ThirdParty/jquery-1.5.2.min.js"></script>
-	<script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
-	<script src="AnimationLibrary/CustomEvents.js"></script>
-	<script src="AnimationLibrary/UndoFunctions.js"></script>
-	<script src="AnimationLibrary/AnimatedObject.js"></script>
-	<script src="AnimationLibrary/AnimatedLabel.js"></script>
-	<script src="AnimationLibrary/AnimatedCircle.js"></script>
-	<script src="AnimationLibrary/AnimatedRectangle.js"></script>
-	<script src="AnimationLibrary/AnimatedLinkedList.js"></script>
-	<script src="AnimationLibrary/HighlightCircle.js"></script>
-	<script src="AnimationLibrary/Line.js"></script>
-	<script src="AnimationLibrary/ObjectManager.js"></script>
-	<script src="AnimationLibrary/AnimationMain.js"></script>
-	<script src="AlgorithmLibrary/Algorithm.js"></script>
-	<script src="AlgorithmLibrary/RedBlack.js"></script>
+    <title>Red-Black Tree Visualization</title>
+    <link rel="stylesheet" href="visualizationPageStyle.css">
+    <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
+    <script src="ThirdParty/jquery-1.5.2.min.js"></script>
+    <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
+    <script src="AnimationLibrary/CustomEvents.js"></script>
+    <script src="AnimationLibrary/UndoFunctions.js"></script>
+    <script src="AnimationLibrary/AnimatedObject.js"></script>
+    <script src="AnimationLibrary/AnimatedLabel.js"></script>
+    <script src="AnimationLibrary/AnimatedCircle.js"></script>
+    <script src="AnimationLibrary/AnimatedRectangle.js"></script>
+    <script src="AnimationLibrary/AnimatedLinkedList.js"></script>
+    <script src="AnimationLibrary/HighlightCircle.js"></script>
+    <script src="AnimationLibrary/Line.js"></script>
+    <script src="AnimationLibrary/ObjectManager.js"></script>
+    <script src="AnimationLibrary/AnimationMain.js"></script>
+    <script src="AlgorithmLibrary/Algorithm.js"></script>
+    <script src="AlgorithmLibrary/RedBlack.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            max-width: 1100px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        #header {
+            text-align: center;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        p {
+            margin: 5px 0 0;
+        }
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        .control-table {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #canvas {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+        }
+        #footer {
+            text-align: center;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border-radius: 0 0 8px 8px;
+            margin-top: 10px;
+        }
+        #footer a {
+            color: white;
+            text-decoration: none;
+        }
+        #footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body onload="init();">
-	<div id="container">
-		<header id="header">
-			<h1>Red-Black Tree Explorer</h1>
-			<p>Interact with a dynamic Red-Black Tree visualization</p>
-		</header>
-		<main id="mainContent">
-			<section id="algoControlSection" class="control-panel">
-				<table id="AlgorithmSpecificControls" class="control-table"></table>
-			</section>
-			<canvas id="canvas" width="1000" height="500" class="bst-canvas"></canvas>
-			<section id="generalAnimationControlSection" class="control-panel">
-				<table id="GeneralAnimationControls" class="control-table"></table>
-			</section>
-		</main>
-		<footer id="footer">
-			<p><a href="Algorithms.html">Back to Algorithm Visualizations</a></p>
-		</footer>
-	</div>
+    <div id="container">
+        <header id="header">
+            <h1>Red-Black Tree Explorer</h1>
+            <p>Interact with a dynamic Red-Black Tree visualization</p>
+        </header>
+        <main id="mainContent">
+            <section id="algoControlSection" class="control-panel">
+                <table id="AlgorithmSpecificControls" class="control-table"></table>
+            </section>
+            <canvas id="canvas" width="1000" height="500" class="bst-canvas"></canvas>
+            <section id="generalAnimationControlSection" class="control-panel">
+                <table id="GeneralAnimationControls" class="control-table"></table>
+            </section>
+        </main>
+        <footer id="footer">
+            <p><a href="Algorithms.html">Back to Algorithm Visualizations</a></p>
+        </footer>
+    </div>
 </body>
 
 </html>

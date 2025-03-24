@@ -1,23 +1,97 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tree Visualization</title>
     <link rel="stylesheet" href="visualizationPageStyle.css">
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container {
+            width: 60%;
+            max-width: 900px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            align-self: center;
+        }
+        .tree-links {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 800px;
+        }
+        .tree-links li {
+            width: 80%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .tree-links li:hover {
+            background: #007BFF;
+            color: white;
+        }
+        .tree-links li a {
+            display: block;
+            text-decoration: none;
+            padding: 15px;
+            color: #333;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .tree-links li:hover a {
+            color: white;
+        }
+        footer {
+            text-align: center;
+            background: #333;
+            color: white;
+            padding: 15px;
+            font-size: 14px;
+            border-radius: 0 0 10px 10px;
+        }
+    </style>
 </head>
-
 <body>
     <div id="container">
-        <header id="header">
+        <header>
             <h1>Tree Visualizer</h1>
             <p>Explore various tree data structures</p>
         </header>
-        <main id="mainContent" class="tree-list-page">
+        <main>
             <ul class="tree-links">
-                <li><a href="AVLtree.html">AVL Tree</a></li>
+                <li><a href="AVLtree.html" align = "center">AVL Tree</a></li>
                 <li><a href="BPlusTree.html">B+ Tree</a></li>
                 <li><a href="BST.html">Binary Search Tree</a></li>
                 <li><a href="BTree.html">B Tree</a></li>
@@ -26,12 +100,11 @@
                 <li><a href="SplayTree.html">Splay Tree</a></li>
             </ul>
         </main>
-        <footer id="footer">
-            <p>© 2025 Tree Visualizer</p>
-            <p>Created By Group 13</p>
-            <p>Anshul Khaire, DuhaZuhayr, Aarya Deshpande, Upamanyu Bhadane, Aashana Sonarkar</p>
+        <footer>
+            <p>&copy; 2025 Tree Visualizer</p>
+            <p>Created By Group 13 </p>
+            <p>Anshul Khaire, Duha Zuhayr, Aarya Deshpande, Upamanyu Bhadane, Aashana Sonarkar</p>
         </footer>
     </div>
 </body>
-
-</html>
+</html> 
