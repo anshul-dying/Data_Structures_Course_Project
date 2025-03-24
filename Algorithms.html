@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,81 +9,201 @@
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            /* Added padding for smaller screens */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
+
         #container {
-            width: 60%;
-            max-width: 900px;
-            background: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            width: 70%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
             overflow: hidden;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
         }
+
+        #container:hover {
+            transform: translateY(-15px);
+        }
+
         header {
-            background: #007BFF;
+            background: linear-gradient(90deg, #007BFF, #00C4FF);
             color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
+            padding: 30px;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
         }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
         header h1 {
             margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
         main {
-            padding: 20px;
-            align-self: center;
+            padding: 30px;
         }
+
         .tree-links {
             list-style: none;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            width: 800px;
+            gap: 20px;
+            width: 100%;
+            /* Changed to 100% for better responsiveness */
+            max-width: 500px;
+            /* Slightly wider for balance */
+            margin: 0 auto;
+            /* Centered */
         }
+
         .tree-links li {
-            width: 80%;
+            width: 100%;
+            /* Full width of parent for consistency */
             background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: 0.3s;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            /* Indicates interactivity */
         }
+
         .tree-links li:hover {
-            background: #007BFF;
-            color: white;
+            background: linear-gradient(90deg, #007BFF, #00C4FF);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
         }
+
         .tree-links li a {
             display: block;
             text-decoration: none;
-            padding: 15px;
-            color: #333;
-            font-size: 18px;
-            transition: 0.3s;
+            padding: 20px;
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
+
+        .tree-links li a:focus {
+            outline: 2px solid #007BFF;
+            /* Clear focus indicator for keyboard users */
+            outline-offset: 2px;
+        }
+
         .tree-links li:hover a {
             color: white;
         }
+
         footer {
-            text-align: center;
-            background: #333;
+            background: linear-gradient(90deg, #2c3e50, #34495e);
             color: white;
-            padding: 15px;
-            font-size: 14px;
-            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            font-size: 0.9em;
+            border-radius: 0 0 15px 15px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer p:first-child {
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .tree-links li a {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 0.9em;
+            }
+
+            .tree-links {
+                gap: 15px;
+            }
+
+            .tree-links li a {
+                font-size: 0.9em;
+                padding: 12px;
+            }
+
+            footer {
+                padding: 15px;
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <header>
@@ -91,7 +212,7 @@
         </header>
         <main>
             <ul class="tree-links">
-                <li><a href="AVLtree.html" align = "center">AVL Tree</a></li>
+                <li><a href="AVLtree.html">AVL Tree</a></li>
                 <li><a href="BPlusTree.html">B+ Tree</a></li>
                 <li><a href="BST.html">Binary Search Tree</a></li>
                 <li><a href="BTree.html">B Tree</a></li>
@@ -101,10 +222,11 @@
             </ul>
         </main>
         <footer>
-            <p>&copy; 2025 Tree Visualizer</p>
-            <p>Created By Group 13 </p>
+            <p>© 2025 Tree Visualizer</p>
+            <p>Created By Group 13</p>
             <p>Anshul Khaire, Duha Zuhayr, Aarya Deshpande, Upamanyu Bhadane, Aashana Sonarkar</p>
         </footer>
     </div>
 </body>
-</html> 
+
+</html>

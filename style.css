@@ -1,0 +1,289 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+#container {
+    width: 100%;
+    max-width: 2000px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: visible;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+#container:hover {
+    transform: translateY(-5px);
+}
+
+#header {
+    background: linear-gradient(90deg, #007BFF, #00C4FF);
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+
+#header h1 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#header p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+#mainContent {
+    padding: 20px;
+}
+
+.control-panel {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.control-table {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-table:hover,
+.control-table:focus-within {
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* Styling for buttons */
+.control-table input[type="button"] {
+    background: linear-gradient(90deg, #007BFF, #00C4FF);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-table input[type="button"]:hover,
+.control-table input[type="button"]:focus {
+    background: linear-gradient(90deg, #0056b3, #0096cc);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Styling for text input */
+.control-table input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+    width: 80px;
+    transition: all 0.3s ease;
+}
+
+.control-table input[type="text"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Styling for radio buttons and labels */
+.control-table input[type="radio"] {
+    margin: 0 5px 0 10px;
+    accent-color: #007BFF;
+}
+
+.control-table label {
+    font-size: 0.9em;
+    color: #2c3e50;
+    margin-right: 10px;
+}
+
+#canvas {
+    display: block;
+    margin: 15px auto;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    /* Matches B+ Tree’s smaller zoom */
+    height: 400px;
+    /* Matches B+ Tree’s smaller zoom */
+}
+
+#footer {
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+    color: white;
+    padding: 15px;
+    border-radius: 0 0 12px 12px;
+    font-size: 0.8em;
+}
+
+#footer a {
+    color: #00C4FF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#footer a:hover,
+#footer a:focus {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Accessibility */
+:focus {
+    outline: 2px solid #007BFF;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    #header {
+        padding: 15px;
+    }
+
+    #header h1 {
+        font-size: 1.6em;
+    }
+
+    #header p {
+        font-size: 0.85em;
+    }
+
+    #canvas {
+        width: 100%;
+        height: 320px;
+    }
+
+    .control-table {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .control-table input[type="button"],
+    .control-table input[type="text"] {
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+
+    .control-table input[type="text"] {
+        width: 60px;
+    }
+
+    .control-table label {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    #container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    #header {
+        padding: 10px;
+    }
+
+    #header h1 {
+        font-size: 1.2em;
+    }
+
+    #header p {
+        font-size: 0.75em;
+    }
+
+    #canvas {
+        height: 240px;
+    }
+
+    .control-panel {
+        padding: 8px;
+    }
+
+    .control-table {
+        padding: 6px;
+        gap: 6px;
+        flex-direction: column;
+    }
+
+    .control-table input[type="button"],
+    .control-table input[type="text"] {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+    .control-table input[type="text"] {
+        width: 50px;
+    }
+
+    .control-table label {
+        font-size: 0.8em;
+    }
+
+    #footer {
+        padding: 10px;
+        font-size: 0.7em;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    body {
+        background: #fff;
+    }
+
+    #container {
+        background: #fff;
+    }
+
+    #header {
+        background: #007BFF;
+    }
+
+    #footer {
+        background: #000;
+    }
+
+    .control-table {
+        background: #e9ecef;
+        border: 2px solid #000;
+    }
+
+    .control-table input[type="button"] {
+        background: #007BFF;
+    }
+}
