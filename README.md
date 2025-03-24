@@ -22,4 +22,7 @@ Run **Algorithms.html** to start the project.
 - [Aarya](https://github.com/Aarya695) - Developer
 ---
 
+# Test Website
+- `https://anshul-dying.github.io/Data_Structures_Course_Project/Algorithms.html`
+
 👨‍💻 Developed for learning and exploring various tree data structures.
