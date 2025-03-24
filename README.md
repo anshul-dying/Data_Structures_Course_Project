@@ -9,7 +9,6 @@ Run **Algorithms.html** to start the project.
 - `AlgorithmLibrary/` - Contains algorithm implementations.
 - `AnimationLibrary/` - Handles animations for visualizations.
 - `ThirdParty/` - External libraries used.
-- `visualizationPageStyle.css` - Main CSS for styling.
 
 ## 📌 Features
 ✅ Interactive algorithm visualization  
