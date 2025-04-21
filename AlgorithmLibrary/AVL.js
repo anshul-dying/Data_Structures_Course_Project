@@ -25,20 +25,17 @@ AVL.superclass = Algorithm.prototype;
 
 // Various constants
 
-AVL.HIGHLIGHT_LABEL_COLOR = "#FF0000"
-AVL.HIGHLIGHT_LINK_COLOR = "#FF0000"
+AVL.HIGHLIGHT_LABEL_COLOR = "#dc2626"; // Red for highlights
+AVL.HIGHLIGHT_LINK_COLOR = "#dc2626";  // Red for highlighted links
 
-AVL.HIGHLIGHT_COLOR = "#0272a6" //changed
-AVL.HEIGHT_LABEL_COLOR = "#013a54" //Changed
+AVL.HIGHLIGHT_COLOR = "#2563eb";       // Primary blue
+AVL.HEIGHT_LABEL_COLOR = "#1e40af";    // Darker blue for labels
 
-
-AVL.LINK_COLOR = "#03579c"; //Changed
-AVL.HIGHLIGHT_CIRCLE_COLOR = "#3ba1f5"; //Changed
-AVL.FOREGROUND_COLOR = "#000000"; //Changed
-AVL.BACKGROUND_COLOR = "#8dbce3"; //Changed
+AVL.LINK_COLOR = "#2563eb";            // Primary blue for links
+AVL.HIGHLIGHT_CIRCLE_COLOR = "#60a5fa"; // Light blue for highlights
+AVL.FOREGROUND_COLOR = "#1e293b";      // Text primary color
+AVL.BACKGROUND_COLOR = "#f1f5f9";      // Light background
 AVL.PRINT_COLOR = AVL.FOREGROUND_COLOR;
-
-
 
 AVL.WIDTH_DELTA = 50;
 AVL.HEIGHT_DELTA = 50;

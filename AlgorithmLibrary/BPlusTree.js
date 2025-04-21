@@ -1,3 +1,10 @@
+// Updated color scheme for modern UI
+var LINK_COLOR = "#2563eb";            // Primary blue for links
+var HIGHLIGHT_CIRCLE_COLOR = "#60a5fa"; // Light blue for highlights
+var FOREGROUND_COLOR = "#1e293b";      // Text primary color
+var BACKGROUND_COLOR = "#f1f5f9";      // Light background
+var PRINT_COLOR = FOREGROUND_COLOR;
+
 var FIRST_PRINT_POS_X = 50;
 var PRINT_VERTICAL_GAP = 20;
 var PRINT_MAX = 990;
@@ -14,15 +21,6 @@ var NODE_HEIGHT = 20;
 
 var MESSAGE_X = 5;
 var MESSAGE_Y = 10;
-
-// Changed
-var LINK_COLOR = "#03579c";
-var HIGHLIGHT_CIRCLE_COLOR = "#3ba1f5";
-var FOREGROUND_COLOR = "#000000";
-var BACKGROUND_COLOR = "#8dbce3";
-var PRINT_COLOR = FOREGROUND_COLOR;
-
-
 
 function BPlusTree(am, w, h) {
 	this.init(am, w, h);

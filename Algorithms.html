@@ -9,221 +9,65 @@
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #e0eafc, #cfdef3);
-            margin: 0;
-            padding: 20px;
-            /* Added padding for smaller screens */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        #container {
-            width: 70%;
-            max-width: 1000px;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 15px;
-            overflow: hidden;
-            padding: 30px;
-            text-align: center;
-            transform: translateY(-10px);
-            transition: transform 0.3s ease;
-        }
-
-        #container:hover {
-            transform: translateY(-15px);
-        }
-
-        header {
-            background: linear-gradient(90deg, #007BFF, #00C4FF);
-            color: white;
-            padding: 30px;
-            border-radius: 15px 15px 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(30deg);
-            pointer-events: none;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        header p {
-            margin: 5px 0 0;
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        main {
-            padding: 30px;
-        }
-
-        .tree-links {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            /* Changed to 100% for better responsiveness */
-            max-width: 500px;
-            /* Slightly wider for balance */
-            margin: 0 auto;
-            /* Centered */
-        }
-
-        .tree-links li {
-            width: 100%;
-            /* Full width of parent for consistency */
-            background: #fff;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            overflow: hidden;
-            cursor: pointer;
-            /* Indicates interactivity */
-        }
-
-        .tree-links li:hover {
-            background: linear-gradient(90deg, #007BFF, #00C4FF);
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
-        }
-
-        .tree-links li a {
-            display: block;
-            text-decoration: none;
-            padding: 20px;
-            color: #2c3e50;
-            font-size: 1.2em;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .tree-links li a:focus {
-            outline: 2px solid #007BFF;
-            /* Clear focus indicator for keyboard users */
-            outline-offset: 2px;
-        }
-
-        .tree-links li:hover a {
-            color: white;
-        }
-
-        footer {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
-            color: white;
-            padding: 20px;
-            font-size: 0.9em;
-            border-radius: 0 0 15px 15px;
-        }
-
-        footer p {
-            margin: 5px 0;
-        }
-
-        footer p:first-child {
-            font-weight: 600;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #container {
-                width: 90%;
-                padding: 20px;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            .tree-links li a {
-                font-size: 1em;
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #container {
-                width: 95%;
-                padding: 15px;
-            }
-
-            header {
-                padding: 20px;
-            }
-
-            header h1 {
-                font-size: 1.5em;
-            }
-
-            header p {
-                font-size: 0.9em;
-            }
-
-            .tree-links {
-                gap: 15px;
-            }
-
-            .tree-links li a {
-                font-size: 0.9em;
-                padding: 12px;
-            }
-
-            footer {
-                padding: 15px;
-                font-size: 0.8em;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="container">
         <header>
             <h1>Tree Visualizer</h1>
-            <p>Explore various tree data structures</p>
+            <p>Interactive data structure visualizations for learning and exploration</p>
         </header>
         <main>
             <ul class="tree-links">
-                <li><a href="AVLtree.html">AVL Tree</a></li>
-                <li><a href="BPlusTree.html">B+ Tree</a></li>
-                <li><a href="BST.html">Binary Search Tree</a></li>
-                <li><a href="BTree.html">B Tree</a></li>
-                <li><a href="RedBlack.html">Red-Black Tree</a></li>
-                <li><a href="SplayTree.html">Splay Tree</a></li>
+                <li>
+                    <a href="AVLtree.html">
+                        <span class="icon"><i class="fas fa-balance-scale"></i></span>
+                        AVL Tree
+                        <span class="tree-desc">Self-balancing binary search tree with height balancing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="BPlusTree.html">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        B+ Tree
+                        <span class="tree-desc">Optimized for storage systems and database indexing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="BST.html">
+                        <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                        Binary Search Tree
+                        <span class="tree-desc">Classic tree data structure with O(log n) operations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="BTree.html">
+                        <span class="icon"><i class="fas fa-sitemap"></i></span>
+                        B Tree
+                        <span class="tree-desc">Self-balancing tree with multiple keys per node</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="RedBlack.html">
+                        <span class="icon"><i class="fas fa-adjust"></i></span>
+                        Red-Black Tree
+                        <span class="tree-desc">Self-balancing BST with color-based balancing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="SplayTree.html">
+                        <span class="icon"><i class="fas fa-random"></i></span>
+                        Splay Tree
+                        <span class="tree-desc">Self-adjusting BST that moves accessed nodes to root</span>
+                    </a>
+                </li>
             </ul>
         </main>
         <footer>
-            <p>© 2025 Tree Visualizer</p>
-            <p>Created By Group 13</p>
-            <p>Anshul Khaire, Duha Zuhayr, Aarya Deshpande, Upamanyu Bhadane, Aashana Sonarkar</p>
+            <p>© 2025 Tree Visualizer | Created for Computer Science Education</p>
+            <p>Developed by <span class="team-members">Group 13: Anshul Khaire, Duha Zuhayr, Aarya Deshpande, Upamanyu Bhadane, Aashana Sonarkar</span></p>
         </footer>
     </div>
 </body>

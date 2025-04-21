@@ -1,0 +1,278 @@
+:root {
+    --primary-color: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #64748b;
+    --accent-color: #0ea5e9;
+    --light-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border-radius: 16px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light-bg);
+    margin: 0;
+    padding: 0;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#container {
+    width: 90%;
+    max-width: 1200px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 2rem 0;
+    transform: translateY(0);
+    transition: var(--transition);
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 2.5rem 2rem;
+    position: relative;
+    text-align: center;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjMwMCI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmMzAiIHN0cm9rZS13aWR0aD0iMiIgZD0iTTUgODAgUSAxMDAgMTAgMjAwIDgwIFQgNDAwIDgwIFQgNjAwIDgwIFQgODAwIDgwIFQgMTAwMCA4MCBUIDEyMDAgODAiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYyMCIgc3Ryb2tlLXdpZHRoPSIyIiBkPSJNNSAxMDAgUSAxMDAgMzAgMjAwIDEwMCBUIDQwMCAxMDAgVCA2MDAgMTAwIFQgODAwIDEwMCBUIDEwMDAgMTAwIFQgMTIwMCAxMDAiLz48L3N2Zz4=') no-repeat center center;
+    background-size: cover;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+main {
+    padding: 2.5rem;
+}
+
+.tree-links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.tree-links li {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    transform: translateY(0);
+}
+
+.tree-links li:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tree-links li a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tree-links li:nth-child(1) {
+    background: linear-gradient(45deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.02));
+}
+
+.tree-links li:nth-child(2) {
+    background: linear-gradient(45deg, rgba(14, 165, 233, 0.08), rgba(14, 165, 233, 0.02));
+}
+
+.tree-links li:nth-child(3) {
+    background: linear-gradient(45deg, rgba(79, 70, 229, 0.08), rgba(79, 70, 229, 0.02));
+}
+
+.tree-links li:nth-child(4) {
+    background: linear-gradient(45deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.02));
+}
+
+.tree-links li:nth-child(5) {
+    background: linear-gradient(45deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.02));
+}
+
+.tree-links li:nth-child(6) {
+    background: linear-gradient(45deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
+}
+
+.tree-links .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    will-change: transform;
+}
+
+.tree-links li:nth-child(1) .icon {
+    color: var(--primary-color);
+}
+
+.tree-links li:nth-child(2) .icon {
+    color: var(--accent-color);
+}
+
+.tree-links li:nth-child(3) .icon {
+    color: #4f46e5;
+}
+
+.tree-links li:nth-child(4) .icon {
+    color: #ec4899;
+}
+
+.tree-links li:nth-child(5) .icon {
+    color: #f97316;
+}
+
+.tree-links li:nth-child(6) .icon {
+    color: #22c55e;
+}
+
+.tree-links li:hover .icon {
+    transform: translateX(20px);
+    position: relative;
+}
+
+.tree-links .tree-desc {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+footer {
+    background: var(--light-bg);
+    color: var(--text-secondary);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer p:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.team-members {
+    font-style: italic;
+    display: inline-block;
+    position: relative;
+}
+
+.team-members:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-light);
+    opacity: 0.5;
+    border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .tree-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header h1 {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #container {
+        width: 95%;
+        margin: 1rem 0;
+    }
+
+    main {
+        padding: 1.5rem;
+    }
+
+    header {
+        padding: 2rem 1.5rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tree-links {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        padding: 1.2rem;
+    }
+}

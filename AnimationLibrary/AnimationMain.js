@@ -115,7 +115,7 @@ function animWaiting() {
 function animStarted() {
 	skipForwardButton.disabled = false;
 	skipBackButton.disabled = false;
-	stepForwardButton.disabled = true;
+	stepForwardButton.disabled = false;
 	stepBackButton.disabled = true;
 	objectManager.statusReport.setText("Animation Running");
 	objectManager.statusReport.setForegroundColor("#009900");
@@ -457,7 +457,6 @@ function AnimationManager(objectManager) {
 
 
 	this.changeSize = function () {
-
 		var width = parseInt(widthEntry.value);
 		var height = parseInt(heightEntry.value);
 
@@ -465,14 +464,16 @@ function AnimationManager(objectManager) {
 			canvas.width = width;
 			this.animatedObjects.width = width;
 			setCookie("VisualizationWidth", String(width), 30);
-
 		}
+
 		if (height > 100) {
+			// Only change the canvas height, don't scale node positions
 			canvas.height = height;
 			this.animatedObjects.height = height;
 			setCookie("VisualizationHeight", String(height), 30);
 		}
-		width.value = canvas.width;
+
+		widthEntry.value = canvas.width;
 		heightEntry.value = canvas.height;
 
 		this.animatedObjects.draw();
@@ -541,7 +542,7 @@ function AnimationManager(objectManager) {
 					this.animatedObjects.connectEdge(parseInt(nextCommand[1]),
 						parseInt(nextCommand[2]),
 						this.parseColor(nextCommand[3]),
-						parseFloat(nextCommand[4]),
+						0.0,
 						true,
 						"",
 						0);
@@ -922,14 +923,54 @@ function AnimationManager(objectManager) {
 	}
 	// Step forwards one step.  A no-op if the animation is not currently paused
 	this.step = function () {
-		if (this.awaitingStep) {
-			this.startNextBlock();
-			this.fireEvent("AnimationStarted", "NoData");
+		// If we're not currently animating but have steps to process
+		if (!this.currentlyAnimating && this.AnimationSteps != null && this.currentAnimation < this.AnimationSteps.length) {
 			this.currentlyAnimating = true;
-			// Re-kick thie timer.  The timer should be going now, but we've had some difficulty with
-			// it timing itself out, so we'll be safe and kick it now.
-			clearTimeout(timer);
-			timer = setTimeout('timeout()', 30);
+			this.awaitingStep = false;
+			this.animationPaused = false;
+			this.fireEvent("AnimationStarted", "NoData");
+		}
+
+		// If we're awaiting a step or currently animating
+		if (this.awaitingStep || this.currentlyAnimating) {
+			// Complete current block if it exists
+			if (this.currentBlock != null) {
+				for (var i = 0; i < this.currentBlock.length; i++) {
+					var objectID = this.currentBlock[i].objectID;
+					this.animatedObjects.setNodePosition(objectID,
+						this.currentBlock[i].toX,
+						this.currentBlock[i].toY);
+				}
+			}
+
+			// Handle undo blocks if needed
+			if (this.doingUndo) {
+				this.finishUndoBlock(this.undoStack.pop());
+			}
+
+			// Start next block
+			this.startNextBlock();
+
+			// Apply positions for new block
+			if (this.currentBlock != null) {
+				for (var i = 0; i < this.currentBlock.length; i++) {
+					var objectID = this.currentBlock[i].objectID;
+					this.animatedObjects.setNodePosition(objectID,
+						this.currentBlock[i].toX,
+						this.currentBlock[i].toY);
+				}
+			}
+
+			// Update display
+			this.animatedObjects.update();
+			this.animatedObjects.draw();
+
+			// If we've reached the end, clean up
+			if (this.currentAnimation >= this.AnimationSteps.length) {
+				this.currentlyAnimating = false;
+				this.awaitingStep = false;
+				this.fireEvent("AnimationEnded", "NoData");
+			}
 		}
 	}
 
@@ -990,39 +1031,60 @@ function AnimationManager(objectManager) {
 	}
 
 	this.skipForward = function () {
-		if (this.currentlyAnimating) {
-			this.animatedObjects.runFast = true;
-			while (this.AnimationSteps != null && this.currentAnimation < this.AnimationSteps.length) {
-				var i;
-				for (i = 0; this.currentBlock != null && i < this.currentBlock.length; i++) {
-					var objectID = this.currentBlock[i].objectID;
-					this.animatedObjects.setNodePosition(objectID,
-						this.currentBlock[i].toX,
-						this.currentBlock[i].toY);
-				}
-				if (this.doingUndo) {
-					this.finishUndoBlock(this.undoStack.pop())
-				}
-				this.startNextBlock();
-				for (i = 0; i < this.currentBlock.length; i++) {
-					var objectID = this.currentBlock[i].objectID;
-					this.animatedObjects.setNodePosition(objectID,
-						this.currentBlock[i].toX,
-						this.currentBlock[i].toY);
-				}
+		// Enable fast mode for skipping
+		this.animatedObjects.runFast = true;
 
-			}
-			this.animatedObjects.update();
-			this.currentlyAnimating = false;
+		// If we're not currently animating but have steps to process
+		if (!this.currentlyAnimating && this.AnimationSteps != null && this.currentAnimation < this.AnimationSteps.length) {
+			this.currentlyAnimating = true;
 			this.awaitingStep = false;
-			this.doingUndo = false;
-
-			this.animatedObjects.runFast = false;
-			this.fireEvent("AnimationEnded", "NoData");
-			clearTimeout(timer);
-			this.animatedObjects.update();
-			this.animatedObjects.draw();
+			this.animationPaused = false;
+			this.fireEvent("AnimationStarted", "NoData");
 		}
+
+		// Process all remaining animation steps
+		while (this.AnimationSteps != null && this.currentAnimation < this.AnimationSteps.length) {
+			// Complete current block if it exists
+			if (this.currentBlock != null) {
+				for (var i = 0; i < this.currentBlock.length; i++) {
+					var objectID = this.currentBlock[i].objectID;
+					this.animatedObjects.setNodePosition(objectID,
+						this.currentBlock[i].toX,
+						this.currentBlock[i].toY);
+				}
+			}
+
+			// Handle undo blocks if needed
+			if (this.doingUndo) {
+				this.finishUndoBlock(this.undoStack.pop());
+			}
+
+			// Start next block
+			this.startNextBlock();
+
+			// Apply positions for new block
+			if (this.currentBlock != null) {
+				for (var i = 0; i < this.currentBlock.length; i++) {
+					var objectID = this.currentBlock[i].objectID;
+					this.animatedObjects.setNodePosition(objectID,
+						this.currentBlock[i].toX,
+						this.currentBlock[i].toY);
+				}
+			}
+		}
+
+		// Clean up and reset state
+		this.animatedObjects.update();
+		this.currentlyAnimating = false;
+		this.awaitingStep = false;
+		this.doingUndo = false;
+		this.animatedObjects.runFast = false;
+
+		// Fire end event and update display
+		this.fireEvent("AnimationEnded", "NoData");
+		clearTimeout(timer);
+		this.animatedObjects.update();
+		this.animatedObjects.draw();
 	}
 
 

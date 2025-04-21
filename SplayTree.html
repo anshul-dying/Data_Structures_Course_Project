@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Splay Tree Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive visualization of Splay Tree data structure operations">
     <link rel="stylesheet" href="visualizationPageStyle.css">
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
     <script src="AnimationLibrary/CustomEvents.js"></script>
@@ -20,7 +25,7 @@
     <script src="AnimationLibrary/AnimationMain.js"></script>
     <script src="AlgorithmLibrary/Algorithm.js"></script>
     <script src="AlgorithmLibrary/SplayTree.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="accessibility.js"></script>
 </head>
 
 <body onload="init();">
@@ -31,15 +36,33 @@
         </header>
         <main id="mainContent">
             <section id="algoControlSection" class="control-panel">
-                <table id="AlgorithmSpecificControls" class="control-table"></table>
+                <table id="AlgorithmSpecificControls" class="control-table" tabindex="0"></table>
             </section>
             <canvas id="canvas" width="1000" height="500" class="bst-canvas"></canvas>
             <section id="generalAnimationControlSection" class="control-panel">
-                <table id="GeneralAnimationControls" class="control-table"></table>
+                <table id="GeneralAnimationControls" class="control-table" tabindex="0"></table>
+            </section>
+            <section class="algo-info">
+                <h3>Splay Tree</h3>
+                <p>A Splay tree is a self-adjusting binary search tree that automatically moves frequently accessed elements closer to the root. After each access, the tree is rearranged (or splayed) to bring the accessed item to the root.</p>
+                <p>Splay Tree Features:</p>
+                <ul>
+                    <li>Recently accessed elements are quick to access again</li>
+                    <li>No extra storage needed for balance information</li>
+                    <li>Simple implementation compared to other balanced trees</li>
+                    <li>Good performance for localized access patterns</li>
+                </ul>
+                <p>Time Complexity:</p>
+                <ul>
+                    <li><strong>Search:</strong> O(log n) amortized</li>
+                    <li><strong>Insert:</strong> O(log n) amortized</li>
+                    <li><strong>Delete:</strong> O(log n) amortized</li>
+                </ul>
+                <p>Use the controls above to perform operations on the Splay tree. Watch how each operation brings the accessed node to the root through a series of rotations.</p>
             </section>
         </main>
         <footer id="footer">
-            <p><a href="Algorithms.html">Back to Algorithm Visualizations</a></p>
+            <p><a href="Algorithms.html" tabindex="0">Back to Algorithm Visualizations</a></p>
         </footer>
     </div>
 </body>

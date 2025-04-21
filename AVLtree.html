@@ -3,8 +3,13 @@
 
 <head>
     <title>AVL Tree Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive visualization of AVL Tree data structure operations">
     <link rel="stylesheet" href="visualizationPageStyle.css">
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
     <script src="AnimationLibrary/CustomEvents.js"></script>
@@ -20,8 +25,7 @@
     <script src="AnimationLibrary/AnimationMain.js"></script>
     <script src="AlgorithmLibrary/Algorithm.js"></script>
     <script src="AlgorithmLibrary/AVL.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <script src="accessibility.js"></script>
 </head>
 
 <body onload="init();">
@@ -37,6 +41,17 @@
             <canvas id="canvas" width="800" height="400" class="bst-canvas"></canvas>
             <section id="generalAnimationControlSection" class="control-panel">
                 <table id="GeneralAnimationControls" class="control-table" tabindex="0"></table>
+            </section>
+            <section class="algo-info">
+                <h3>AVL Tree</h3>
+                <p>An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at most one. If at any time they differ by more than one, rebalancing is done to restore this property.</p>
+                <p>Time Complexity:</p>
+                <ul>
+                    <li><strong>Search:</strong> O(log n)</li>
+                    <li><strong>Insert:</strong> O(log n)</li>
+                    <li><strong>Delete:</strong> O(log n)</li>
+                </ul>
+                <p>Use the controls above to perform operations on the AVL tree. The tree will automatically rebalance itself when needed.</p>
             </section>
         </main>
         <footer id="footer">

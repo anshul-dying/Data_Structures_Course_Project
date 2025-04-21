@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>B-Tree Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive visualization of B-Tree data structure operations">
     <link rel="stylesheet" href="visualizationPageStyle.css">
     <link rel="stylesheet" href="ThirdParty/jquery-ui-1.8.11.custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="ThirdParty/jquery-1.5.2.min.js"></script>
     <script src="ThirdParty/jquery-ui-1.8.11.custom.min.js"></script>
     <script src="AnimationLibrary/CustomEvents.js"></script>
@@ -21,7 +26,7 @@
     <script src="AnimationLibrary/AnimationMain.js"></script>
     <script src="AlgorithmLibrary/Algorithm.js"></script>
     <script src="AlgorithmLibrary/BTree.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="accessibility.js"></script>
 </head>
 
 <body onload="init();">
@@ -32,15 +37,33 @@
         </header>
         <main id="mainContent">
             <section id="algoControlSection" class="control-panel">
-                <table id="AlgorithmSpecificControls" class="control-table"></table>
+                <table id="AlgorithmSpecificControls" class="control-table" tabindex="0"></table>
             </section>
             <canvas id="canvas" width="1000" height="500" class="bst-canvas"></canvas>
             <section id="generalAnimationControlSection" class="control-panel">
-                <table id="GeneralAnimationControls" class="control-table"></table>
+                <table id="GeneralAnimationControls" class="control-table" tabindex="0"></table>
+            </section>
+            <section class="algo-info">
+                <h3>B-Tree</h3>
+                <p>A B-tree is a self-balancing tree data structure that maintains sorted data and allows searches, sequential access, insertions, and deletions in logarithmic time. It is optimized for systems that read and write large blocks of data.</p>
+                <p>B-Tree Properties:</p>
+                <ul>
+                    <li>All leaves are at the same level</li>
+                    <li>A non-leaf node with k children contains k-1 keys</li>
+                    <li>Each node (except root) has at least t-1 keys and at most 2t-1 keys</li>
+                    <li>All nodes (including root) may have at most 2t children</li>
+                </ul>
+                <p>Time Complexity:</p>
+                <ul>
+                    <li><strong>Search:</strong> O(log n)</li>
+                    <li><strong>Insert:</strong> O(log n)</li>
+                    <li><strong>Delete:</strong> O(log n)</li>
+                </ul>
+                <p>Use the controls above to perform operations on the B-tree. Notice how the tree maintains its balance by splitting and merging nodes.</p>
             </section>
         </main>
         <footer id="footer">
-            <p><a href="Algorithms.html">Back to Algorithm Visualizations</a></p>
+            <p><a href="Algorithms.html" tabindex="0">Back to Algorithm Visualizations</a></p>
         </footer>
     </div>
 </body>

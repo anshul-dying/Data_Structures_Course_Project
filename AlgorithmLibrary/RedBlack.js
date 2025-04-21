@@ -58,26 +58,26 @@ var PRINT_VERTICAL_GAP = 20;
 var PRINT_HORIZONTAL_GAP = 50;
 
 
-var FOREGROUND_RED = "#AA0000";
-var BACKGROUND_RED = "#FFAAAA";
+var FOREGROUND_RED = "#dc2626";    // Bright red for red nodes
+var BACKGROUND_RED = "#fee2e2";    // Light red background
 
-var FOREGROUND_BLACK = "#000000"
-var BACKGROUND_BLACK = "#AAAAAA";
-var BACKGROUND_DOUBLE_BLACK = "#777777";
+var FOREGROUND_BLACK = "#1e293b";  // Dark slate for black nodes
+var BACKGROUND_BLACK = "#f1f5f9";  // Light slate background
+var BACKGROUND_DOUBLE_BLACK = "#94a3b8"; // Medium slate for double black
 
 
 // var HIGHLIGHT_LABEL_COLOR = RED
 // var HIGHLIGHT_LINK_COLOR = RED
 
 
-var HIGHLIGHT_LABEL_COLOR = "#FF0000"
-var HIGHLIGHT_LINK_COLOR = "#FF0000"
+var HIGHLIGHT_LABEL_COLOR = "#dc2626"; // Red for highlights
+var HIGHLIGHT_LINK_COLOR = "#dc2626";  // Red for highlighted links
 
-var BLUE = "#0000FF";
+var BLUE = "#2563eb";  // Primary blue
 
-var LINK_COLOR = "#000000"
+var LINK_COLOR = "#2563eb";  // Primary blue for links
 var BACKGROUND_COLOR = BACKGROUND_BLACK;
-var HIGHLIGHT_COLOR = "#007700";
+var HIGHLIGHT_COLOR = "#059669"; // Emerald for highlights
 var FOREGROUND_COLOR = FOREGROUND_BLACK;
 var PRINT_COLOR = FOREGROUND_COLOR
 

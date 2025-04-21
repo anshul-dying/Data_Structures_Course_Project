@@ -1,10 +1,9 @@
-
-
-BST.LINK_COLOR = "#03579c";
-BST.HIGHLIGHT_CIRCLE_COLOR = "#3ba1f5";
-BST.FOREGROUND_COLOR = "#000000";
-BST.BACKGROUND_COLOR = "#8dbce3";
-BST.PRINT_COLOR = BST.FOREGROUND_COLOR;
+// Updated color scheme for modern UI
+BST.LINK_COLOR = "#2563eb";            // Primary color for links
+BST.HIGHLIGHT_CIRCLE_COLOR = "#3b82f6"; // Primary light color
+BST.FOREGROUND_COLOR = "#1e293b";      // Text primary color
+BST.BACKGROUND_COLOR = "#f1f5f9";      // Light background
+BST.PRINT_COLOR = "#1e293b";           // Text primary color
 
 BST.WIDTH_DELTA = 50;
 BST.HEIGHT_DELTA = 50;

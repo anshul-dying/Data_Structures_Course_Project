@@ -1,26 +1,23 @@
-//Changed 
-SPLAYTREE.LINK_COLOR = "#03579c";
-SPLAYTREE.HIGHLIGHT_CIRCLE_COLOR = "#3ba1f5";
-SPLAYTREE.FOREGROUND_COLOR = "#000000";
-SPLAYTREE.BACKGROUND_COLOR = "#8dbce3";
+//Updated color scheme for modern UI
+SPLAYTREE.LINK_COLOR = "#2563eb";            // Primary blue for links
+SPLAYTREE.HIGHLIGHT_CIRCLE_COLOR = "#60a5fa"; // Light blue for highlights
+SPLAYTREE.FOREGROUND_COLOR = "#1e293b";      // Text primary color
+SPLAYTREE.BACKGROUND_COLOR = "#f1f5f9";      // Light background
 SPLAYTREE.PRINT_COLOR = SPLAYTREE.FOREGROUND_COLOR;
 
 SPLAYTREE.WIDTH_DELTA = 50;
 SPLAYTREE.HEIGHT_DELTA = 50;
 SPLAYTREE.STARTING_Y = 50;
 
-
 SPLAYTREE.FIRST_PRINT_POS_X = 50;
 SPLAYTREE.PRINT_VERTICAL_GAP = 20;
 SPLAYTREE.PRINT_HORIZONTAL_GAP = 50;
-
-
 
 function SPLAYTREE(am, w, h) {
 	this.init(am, w, h);
 }
 
-SPLAYTREE.prototype = new Algorithm();
+SPLAYTREE.prototype = new Algorithm();cu
 SPLAYTREE.prototype.constructor = SPLAYTREE;
 SPLAYTREE.superclass = Algorithm.prototype;
 
@@ -84,9 +81,6 @@ SPLAYTREE.prototype.deleteCallback = function (event) {
 		this.implementAction(this.deleteElement.bind(this), deletedValue);
 	}
 }
-
-
-
 
 //  TODO:  This top-down version is broken.  Don't use
 SPLAYTREE.prototype.splay = function (value) {
@@ -160,8 +154,6 @@ SPLAYTREE.prototype.splay = function (value) {
 	}
 
 }
-
-
 
 SPLAYTREE.prototype.printCallback = function (event) {
 	this.implementAction(this.printTree.bind(this), "");
