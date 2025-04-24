@@ -45,7 +45,6 @@ RedBlack.prototype.addControls = function () {
 	this.showNullLeaves = addCheckboxToAlgorithmBar("Show Null Leaves");
 	this.showNullLeaves.onclick = this.showNullLeavesCallback.bind(this);
 	this.showNullLeaves.checked = false;;
-
 }
 
 RedBlack.prototype.reset = function () {
@@ -936,8 +935,7 @@ RedBlack.prototype.treeDelete = function (tree, valueToDelete) {
 					this.treeRoot.parent = null;
 					if (this.treeRoot.blackLevel == 0) {
 						this.treeRoot.blackLevel = 1;
-						this.cmd("SetForegroundColor", this.treeRoot.graphicID, FOREGROUND_BLACK);
-						this.cmd("SetBackgroundColor", this.treeRoot.graphicID, BACKGROUND_BLACK);
+						this.fixNodeColor(this.treeRoot);
 					}
 				}
 				this.resizeTree();

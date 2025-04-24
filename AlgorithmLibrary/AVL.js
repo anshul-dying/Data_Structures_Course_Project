@@ -37,9 +37,9 @@ AVL.FOREGROUND_COLOR = "#1e293b";      // Text primary color
 AVL.BACKGROUND_COLOR = "#f1f5f9";      // Light background
 AVL.PRINT_COLOR = AVL.FOREGROUND_COLOR;
 
-AVL.WIDTH_DELTA = 50;
+AVL.WIDTH_DELTA = 70;
 AVL.HEIGHT_DELTA = 50;
-AVL.STARTING_Y = 50;
+AVL.STARTING_Y = 80;
 
 AVL.FIRST_PRINT_POS_X = 50;
 AVL.PRINT_VERTICAL_GAP = 20;
@@ -281,15 +281,12 @@ AVL.prototype.insertElement = function (insertedValue) {
 
 AVL.prototype.singleRotateRight = function (tree) {
 	var B = tree;
-	var t3 = B.right;
 	var A = tree.left;
-	var t1 = A.left;
 	var t2 = A.right;
 
-	this.cmd("SetText", 0, "Single Rotate Right");
+	this.cmd("SetText", 0, "Single Rotate Right (LL Rotation)");
 	this.cmd("SetEdgeHighlight", B.graphicID, A.graphicID, 1);
 	this.cmd("Step");
-
 
 	if (t2 != null) {
 		this.cmd("Disconnect", A.graphicID, t2.graphicID);
@@ -298,23 +295,24 @@ AVL.prototype.singleRotateRight = function (tree) {
 	}
 	this.cmd("Disconnect", B.graphicID, A.graphicID);
 	this.cmd("Connect", A.graphicID, B.graphicID, AVL.LINK_COLOR);
-	A.parent = B.parent;
-	if (this.treeRoot == B) {
-		this.treeRoot = A;
-	}
-	else {
-		this.cmd("Disconnect", B.parent.graphicID, B.graphicID, AVL.LINK_COLOR);
-		this.cmd("Connect", B.parent.graphicID, A.graphicID, AVL.LINK_COLOR)
+	
+	if (B.parent != null) {
+		this.cmd("Disconnect", B.parent.graphicID, B.graphicID);
+		this.cmd("Connect", B.parent.graphicID, A.graphicID, AVL.LINK_COLOR);
 		if (B.isLeftChild()) {
 			B.parent.left = A;
-		}
-		else {
+		} else {
 			B.parent.right = A;
 		}
+	} else {
+		this.treeRoot = A;
 	}
-	A.right = B;
+	
+	A.parent = B.parent;
 	B.parent = A;
+	A.right = B;
 	B.left = t2;
+
 	this.resetHeight(B);
 	this.resetHeight(A);
 	this.resizeTree();
@@ -325,11 +323,9 @@ AVL.prototype.singleRotateRight = function (tree) {
 AVL.prototype.singleRotateLeft = function (tree) {
 	var A = tree;
 	var B = tree.right;
-	var t1 = A.left;
 	var t2 = B.left;
-	var t3 = B.right;
 
-	this.cmd("SetText", 0, "Single Rotate Left");
+	this.cmd("SetText", 0, "Single Rotate Left (RR Rotation)");
 	this.cmd("SetEdgeHighlight", A.graphicID, B.graphicID, 1);
 	this.cmd("Step");
 
@@ -340,26 +336,23 @@ AVL.prototype.singleRotateLeft = function (tree) {
 	}
 	this.cmd("Disconnect", A.graphicID, B.graphicID);
 	this.cmd("Connect", B.graphicID, A.graphicID, AVL.LINK_COLOR);
-	B.parent = A.parent;
-	if (this.treeRoot == A) {
-		this.treeRoot = B;
-	}
-	else {
-		this.cmd("Disconnect", A.parent.graphicID, A.graphicID, AVL.LINK_COLOR);
-		this.cmd("Connect", A.parent.graphicID, B.graphicID, AVL.LINK_COLOR)
-
+	
+	if (A.parent != null) {
+		this.cmd("Disconnect", A.parent.graphicID, A.graphicID);
+		this.cmd("Connect", A.parent.graphicID, B.graphicID, AVL.LINK_COLOR);
 		if (A.isLeftChild()) {
 			A.parent.left = B;
-		}
-		else {
+		} else {
 			A.parent.right = B;
 		}
+	} else {
+		this.treeRoot = B;
 	}
-	B.left = A;
+	
+	B.parent = A.parent;
 	A.parent = B;
+	B.left = A;
 	A.right = t2;
-	this.resetHeight(A);
-	this.resetHeight(B);
 
 	this.resizeTree();
 }
@@ -514,144 +507,115 @@ AVL.prototype.doubleRotateLeft = function (tree) {
 }
 
 AVL.prototype.insert = function (elem, tree) {
-	this.cmd("SetText", 0, `Step 1: Comparing ${elem.data} with the root node ${tree.data}`);
+	// Step 1: Compare with root
+	this.cmd("SetText", 0, `1) Comparing ${elem.data} with the root node i.e. ${tree.data}`);
 	this.cmd("SetHighlight", tree.graphicID, 1);
 	this.cmd("SetHighlight", elem.graphicID, 1);
 	this.cmd("Step");
 
 	if (elem.data < tree.data) {
-		this.cmd("SetText", 0, `Step 2: ${elem.data} is less than the root node ${tree.data}, going towards left`);
-	} else {
-		this.cmd("SetText", 0, `Step 2: ${elem.data} is greater than or equal to the root node ${tree.data}, going towards right`);
-	}
-	this.cmd("Step");
-	this.cmd("SetHighlight", tree.graphicID, 0);
-	this.cmd("SetHighlight", elem.graphicID, 0);
-
-	if (elem.data < tree.data) {
-		this.cmd("SetText", 0, `Step 3: Checking whether there is a child node to the left of ${tree.data}`);
+		// Step 2: Show direction
+		this.cmd("SetText", 0, `2) ${elem.data} is less than the root node i.e. ${tree.data} going towards left`);
+		this.cmd("Step");
+		
+		// Step 3: Check for child
+		this.cmd("SetText", 0, `3) Checking whether there is a child node to the left of ${tree.data}`);
 		this.cmd("Step");
 		
 		if (tree.left == null) {
-			this.cmd("SetText", 0, `Step 4: No left child exists, inserting ${elem.data} as left child of ${tree.data}`);
+			// Step 7: Insert node if no child exists
+			this.cmd("SetText", 0, `7) No child node exists, inserting ${elem.data}`);
 			this.cmd("SetText", elem.heightLabelID, 1);
-			this.cmd("SetHighlight", elem.graphicID, 0);
 			tree.left = elem;
 			elem.parent = tree;
-			this.cmd("Connect", tree.graphicID, elem.graphicID, AVL.LINK_COLOR);
-			this.resizeTree();
 			
-			this.cmd("SetText", 0, `Step 5: Checking balance factor for ${tree.data}`);
+			elem.x = tree.x - AVL.WIDTH_DELTA;
+			elem.y = tree.y + AVL.HEIGHT_DELTA;
+			this.cmd("Move", elem.graphicID, elem.x, elem.y);
+			this.cmd("Move", elem.heightLabelID, elem.x, elem.y - 20);
 			this.cmd("Step");
-			
-			if (tree.height < tree.left.height + 1) {
-				tree.height = tree.left.height + 1;
-				this.cmd("SetText", tree.heightLabelID, tree.height);
-				this.cmd("SetText", 0, `Step 6: Adjusting height of ${tree.data} to ${tree.height}`);
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HIGHLIGHT_LABEL_COLOR);
-				this.cmd("Step");
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HEIGHT_LABEL_COLOR);
-			}
+			this.cmd("Connect", tree.graphicID, elem.graphicID, AVL.LINK_COLOR);
+			this.cmd("Step");
 		} else {
-			this.cmd("SetText", 0, `Step 4: Left child ${tree.left.data} exists, comparing ${elem.data} with it`);
+			this.cmd("SetText", 0, `4) Child node exists i.e. ${tree.left.data} exists, comparing ${elem.data} with child node`);
 			this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
 			this.cmd("Move", this.highlightID, tree.left.x, tree.left.y);
 			this.cmd("Step");
 			this.cmd("Delete", this.highlightID);
 			this.insert(elem, tree.left);
-			
-			this.cmd("SetText", 0, `Step 5: Checking balance factor for ${tree.data}`);
-			this.cmd("Step");
-			
-			if (tree.height < tree.left.height + 1) {
-				tree.height = tree.left.height + 1;
-				this.cmd("SetText", tree.heightLabelID, tree.height);
-				this.cmd("SetText", 0, `Step 6: Adjusting height of ${tree.data} to ${tree.height}`);
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HIGHLIGHT_LABEL_COLOR);
-				this.cmd("Step");
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HEIGHT_LABEL_COLOR);
-			}
-			
-			this.cmd("SetText", 0, `Step 7: Checking if rotation is needed for ${tree.data}`);
-			this.cmd("Step");
-			
-			if ((tree.right != null && tree.left.height > tree.right.height + 1) ||
-				(tree.right == null && tree.left.height > 1)) {
-				this.cmd("SetText", 0, `Step 8: Balance factor is ${tree.left.height - (tree.right ? tree.right.height : 0)}, performing rotation`);
-				this.cmd("Step");
-				
-				if (elem.data < tree.left.data) {
-					this.cmd("SetText", 0, "Step 9: Performing LL rotation");
-					this.singleRotateRight(tree);
-				} else {
-					this.cmd("SetText", 0, "Step 9: Performing LR rotation");
-					this.doubleRotateRight(tree);
-				}
-			}
 		}
 	} else {
-		// Similar steps for right subtree
-		this.cmd("SetText", 0, `Step 3: Checking whether there is a child node to the right of ${tree.data}`);
+		// Similar steps for right side
+		this.cmd("SetText", 0, `2) ${elem.data} is greater than or equal to the root node i.e. ${tree.data} going towards right`);
+		this.cmd("Step");
+		
+		this.cmd("SetText", 0, `3) Checking whether there is a child node to the right of ${tree.data}`);
 		this.cmd("Step");
 		
 		if (tree.right == null) {
-			this.cmd("SetText", 0, `Step 4: No right child exists, inserting ${elem.data} as right child of ${tree.data}`);
+			this.cmd("SetText", 0, `7) No child node exists, inserting ${elem.data}`);
 			this.cmd("SetText", elem.heightLabelID, 1);
-			this.cmd("SetHighlight", elem.graphicID, 0);
 			tree.right = elem;
 			elem.parent = tree;
-			this.cmd("Connect", tree.graphicID, elem.graphicID, AVL.LINK_COLOR);
-			this.resizeTree();
 			
-			this.cmd("SetText", 0, `Step 5: Checking balance factor for ${tree.data}`);
+			elem.x = tree.x + AVL.WIDTH_DELTA;
+			elem.y = tree.y + AVL.HEIGHT_DELTA;
+			this.cmd("Move", elem.graphicID, elem.x, elem.y);
+			this.cmd("Move", elem.heightLabelID, elem.x, elem.y - 20);
 			this.cmd("Step");
-			
-			if (tree.height < tree.right.height + 1) {
-				tree.height = tree.right.height + 1;
-				this.cmd("SetText", tree.heightLabelID, tree.height);
-				this.cmd("SetText", 0, `Step 6: Adjusting height of ${tree.data} to ${tree.height}`);
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HIGHLIGHT_LABEL_COLOR);
-				this.cmd("Step");
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HEIGHT_LABEL_COLOR);
-			}
+			this.cmd("Connect", tree.graphicID, elem.graphicID, AVL.LINK_COLOR);
+			this.cmd("Step");
 		} else {
-			this.cmd("SetText", 0, `Step 4: Right child ${tree.right.data} exists, comparing ${elem.data} with it`);
+			this.cmd("SetText", 0, `4) Child node exists i.e. ${tree.right.data} exists, comparing ${elem.data} with child node`);
 			this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
 			this.cmd("Move", this.highlightID, tree.right.x, tree.right.y);
 			this.cmd("Step");
 			this.cmd("Delete", this.highlightID);
 			this.insert(elem, tree.right);
-			
-			this.cmd("SetText", 0, `Step 5: Checking balance factor for ${tree.data}`);
-			this.cmd("Step");
-			
-			if (tree.height < tree.right.height + 1) {
-				tree.height = tree.right.height + 1;
-				this.cmd("SetText", tree.heightLabelID, tree.height);
-				this.cmd("SetText", 0, `Step 6: Adjusting height of ${tree.data} to ${tree.height}`);
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HIGHLIGHT_LABEL_COLOR);
-				this.cmd("Step");
-				this.cmd("SetForegroundColor", tree.heightLabelID, AVL.HEIGHT_LABEL_COLOR);
-			}
-			
-			this.cmd("SetText", 0, `Step 7: Checking if rotation is needed for ${tree.data}`);
-			this.cmd("Step");
-			
-			if ((tree.left != null && tree.right.height > tree.left.height + 1) ||
-				(tree.left == null && tree.right.height > 1)) {
-				this.cmd("SetText", 0, `Step 8: Balance factor is ${(tree.left ? tree.left.height : 0) - tree.right.height}, performing rotation`);
-				this.cmd("Step");
-				
-				if (elem.data >= tree.right.data) {
-					this.cmd("SetText", 0, "Step 9: Performing RR rotation");
-					this.singleRotateLeft(tree);
-				} else {
-					this.cmd("SetText", 0, "Step 9: Performing RL rotation");
-					this.doubleRotateLeft(tree);
-				}
-			}
 		}
 	}
+	
+	// Update height
+	tree.height = Math.max(this.getHeight(tree.left), this.getHeight(tree.right)) + 1;
+	this.cmd("SetText", tree.heightLabelID, tree.height);
+	
+	// Calculate balance factor
+	var balanceFactor = this.getHeight(tree.left) - this.getHeight(tree.right);
+	this.cmd("SetText", 0, `8) Balance factor at node ${tree.data} is ${balanceFactor}`);
+	this.cmd("Step");
+	
+	// Check if rotation is needed
+	if (balanceFactor > 1) {
+		// Left subtree is higher
+		if (elem.data < tree.left.data) {
+			// LL case
+			this.cmd("SetText", 0, "9) Left-Left case detected, performing right rotation");
+			this.cmd("Step");
+			this.singleRotateRight(tree);
+		} else {
+			// LR case
+			this.cmd("SetText", 0, "9) Left-Right case detected, performing double rotation");
+			this.cmd("Step");
+			this.doubleRotateRight(tree);
+		}
+	} else if (balanceFactor < -1) {
+		// Right subtree is higher
+		if (elem.data >= tree.right.data) {
+			// RR case
+			this.cmd("SetText", 0, "9) Right-Right case detected, performing left rotation");
+			this.cmd("Step");
+			this.singleRotateLeft(tree);
+		} else {
+			// RL case
+			this.cmd("SetText", 0, "9) Right-Left case detected, performing double rotation");
+			this.cmd("Step");
+			this.doubleRotateLeft(tree);
+		}
+	}
+	
+	this.cmd("SetHighlight", tree.graphicID, 0);
+	this.cmd("SetHighlight", elem.graphicID, 0);
+	this.resizeTree();
 }
 
 AVL.prototype.deleteElement = function (deletedValue) {
@@ -671,175 +635,18 @@ AVL.prototype.treeDelete = function (tree, valueToDelete) {
 		if (tree.parent != null) {
 			leftchild = tree.parent.left == tree;
 		}
-		this.cmd("SetText", 0, `Step 1: Comparing ${valueToDelete} with the current node ${tree.data}`);
+		
+		// Step 1: Compare with current node
+		this.cmd("SetText", 0, `1) Comparing ${valueToDelete} with current node ${tree.data}`);
 		this.cmd("SetHighlight", tree.graphicID, 1);
 		this.cmd("Step");
-
+		
 		if (valueToDelete < tree.data) {
-			this.cmd("SetText", 0, `Step 2: ${valueToDelete} is less than ${tree.data}, going towards left`);
-		} else if (valueToDelete > tree.data) {
-			this.cmd("SetText", 0, `Step 2: ${valueToDelete} is greater than ${tree.data}, going towards right`);
-		} else {
-			this.cmd("SetText", 0, `Step 2: ${valueToDelete} equals ${tree.data}, found node to delete`);
-		}
-		this.cmd("Step");
-		this.cmd("SetHighlight", tree.graphicID, 0);
-
-		if (valueToDelete == tree.data) {
-			if (tree.left == null && tree.right == null) {
-				this.cmd("SetText", 0, `Step 3: Node ${tree.data} is a leaf node, deleting it`);
-				this.cmd("Delete", tree.graphicID);
-				this.cmd("Delete", tree.heightLabelID);
-				if (leftchild && tree.parent != null) {
-					tree.parent.left = null;
-				} else if (tree.parent != null) {
-					tree.parent.right = null;
-				} else {
-					this.treeRoot = null;
-				}
-				this.resizeTree();
-				this.cmd("Step");
-			} else if (tree.left == null) {
-				this.cmd("SetText", 0, `Step 3: Node ${tree.data} has no left child, replacing with right child`);
-				if (tree.parent != null) {
-					this.cmd("Disconnect", tree.parent.graphicID, tree.graphicID);
-					this.cmd("Connect", tree.parent.graphicID, tree.right.graphicID, AVL.LINK_COLOR);
-					this.cmd("Step");
-					this.cmd("Delete", tree.graphicID);
-					this.cmd("Delete", tree.heightLabelID);
-					if (leftchild) {
-						tree.parent.left = tree.right;
-					} else {
-						tree.parent.right = tree.right;
-					}
-					tree.right.parent = tree.parent;
-				} else {
-					this.cmd("Delete", tree.graphicID);
-					this.cmd("Delete", tree.heightLabelID);
-					this.treeRoot = tree.right;
-					this.treeRoot.parent = null;
-				}
-				this.resizeTree();
-			} else if (tree.right == null) {
-				this.cmd("SetText", 0, `Step 3: Node ${tree.data} has no right child, replacing with left child`);
-				if (tree.parent != null) {
-					this.cmd("Disconnect", tree.parent.graphicID, tree.graphicID);
-					this.cmd("Connect", tree.parent.graphicID, tree.left.graphicID, AVL.LINK_COLOR);
-					this.cmd("Step");
-					this.cmd("Delete", tree.graphicID);
-					this.cmd("Delete", tree.heightLabelID);
-					if (leftchild) {
-						tree.parent.left = tree.left;
-					} else {
-						tree.parent.right = tree.left;
-					}
-					tree.left.parent = tree.parent;
-				} else {
-					this.cmd("Delete", tree.graphicID);
-					this.cmd("Delete", tree.heightLabelID);
-					this.treeRoot = tree.left;
-					this.treeRoot.parent = null;
-				}
-				this.resizeTree();
-			} else {
-				this.cmd("SetText", 0, `Step 3: Node ${tree.data} has both children, finding inorder successor`);
-				this.highlightID = this.nextIndex;
-				this.nextIndex += 1;
-				this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
-				var tmp = tree;
-				tmp = tree.left;
-				this.cmd("Move", this.highlightID, tmp.x, tmp.y);
-				this.cmd("Step");
-				while (tmp.right != null) {
-					tmp = tmp.right;
-					this.cmd("Move", this.highlightID, tmp.x, tmp.y);
-					this.cmd("Step");
-				}
-				this.cmd("SetText", tree.graphicID, " ");
-				var labelID = this.nextIndex;
-				this.nextIndex += 1;
-				this.cmd("CreateLabel", labelID, tmp.data, tmp.x, tmp.y);
-				this.cmd("SetForegroundColor", labelID, AVL.HEIGHT_LABEL_COLOR);
-				tree.data = tmp.data;
-				this.cmd("Move", labelID, tree.x, tree.y);
-				this.cmd("SetText", 0, `Step 4: Replacing ${tree.data} with inorder successor ${tmp.data}`);
-				this.cmd("Step");
-				this.cmd("SetHighlight", tree.graphicID, 0);
-				this.cmd("Delete", labelID);
-				this.cmd("SetText", tree.graphicID, tree.data);
-				this.cmd("Delete", this.highlightID);
-				this.cmd("SetText", 0, `Step 5: Deleting inorder successor ${tmp.data}`);
-				this.cmd("Step");
-
-				if (tmp.left == null) {
-					if (tmp.parent != tree) {
-						tmp.parent.right = null;
-					} else {
-						tree.left = null;
-					}
-					this.cmd("Delete", tmp.graphicID);
-					this.cmd("Delete", tmp.heightLabelID);
-					this.resizeTree();
-				} else {
-					this.cmd("Disconnect", tmp.parent.graphicID, tmp.graphicID);
-					this.cmd("Connect", tmp.parent.graphicID, tmp.left.graphicID, AVL.LINK_COLOR);
-					this.cmd("Step");
-					this.cmd("Delete", tmp.graphicID);
-					this.cmd("Delete", tmp.heightLabelID);
-					if (tmp.parent != tree) {
-						tmp.parent.right = tmp.left;
-						tmp.left.parent = tmp.parent;
-					} else {
-						tree.left = tmp.left;
-						tmp.left.parent = tree;
-					}
-					this.resizeTree();
-				}
-				tmp = tmp.parent;
-
-				this.cmd("SetText", 0, `Step 6: Checking balance factor for ${tmp.data}`);
-				this.cmd("Step");
-
-				if (this.getHeight(tmp) != Math.max(this.getHeight(tmp.left), this.getHeight(tmp.right)) + 1) {
-					tmp.height = Math.max(this.getHeight(tmp.left), this.getHeight(tmp.right)) + 1;
-					this.cmd("SetText", tmp.heightLabelID, tmp.height);
-					this.cmd("SetText", 0, `Step 7: Adjusting height of ${tmp.data} to ${tmp.height}`);
-					this.cmd("SetForegroundColor", tmp.heightLabelID, AVL.HIGHLIGHT_LABEL_COLOR);
-					this.cmd("Step");
-					this.cmd("SetForegroundColor", tmp.heightLabelID, AVL.HEIGHT_LABEL_COLOR);
-				}
-
-				while (tmp != tree) {
-					var tmpPar = tmp.parent;
-					this.cmd("SetText", 0, `Step 8: Checking if rotation is needed for ${tmp.data}`);
-					this.cmd("Step");
-
-					if (this.getHeight(tmp.left) - this.getHeight(tmp.right) > 1) {
-						this.cmd("SetText", 0, `Step 9: Balance factor is ${this.getHeight(tmp.left) - this.getHeight(tmp.right)}, performing rotation`);
-						this.cmd("Step");
-						if (this.getHeight(tmp.left.right) > this.getHeight(tmp.left.left)) {
-							this.cmd("SetText", 0, "Step 10: Performing LR rotation");
-							this.doubleRotateRight(tmp);
-						} else {
-							this.cmd("SetText", 0, "Step 10: Performing LL rotation");
-							this.singleRotateRight(tmp);
-						}
-					}
-					if (tmpPar.right != null) {
-						if (tmpPar == tree) {
-							this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tmpPar.left.x, tmpPar.left.y);
-						} else {
-							this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tmpPar.right.x, tmpPar.right.y);
-						}
-						this.cmd("Move", this.highlightID, tmpPar.x, tmpPar.y);
-						this.cmd("SetText", 0, "Step 11: Moving up the tree");
-						this.cmd("Step");
-						this.cmd("Delete", this.highlightID);
-					}
-					tmp = tmpPar;
-				}
-			}
-		} else if (valueToDelete < tree.data) {
+			// Step 2: Show direction
+			this.cmd("SetText", 0, `2) ${valueToDelete} is less than ${tree.data}, going towards left subtree`);
+			this.cmd("Step");
+			this.cmd("SetHighlight", tree.graphicID, 0);
+			
 			if (tree.left != null) {
 				this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
 				this.cmd("Move", this.highlightID, tree.left.x, tree.left.y);
@@ -847,7 +654,13 @@ AVL.prototype.treeDelete = function (tree, valueToDelete) {
 				this.cmd("Delete", this.highlightID);
 			}
 			this.treeDelete(tree.left, valueToDelete);
-		} else {
+		}
+		else if (valueToDelete > tree.data) {
+			// Step 2: Show direction
+			this.cmd("SetText", 0, `2) ${valueToDelete} is greater than ${tree.data}, going towards right subtree`);
+			this.cmd("Step");
+			this.cmd("SetHighlight", tree.graphicID, 0);
+			
 			if (tree.right != null) {
 				this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
 				this.cmd("Move", this.highlightID, tree.right.x, tree.right.y);
@@ -856,8 +669,198 @@ AVL.prototype.treeDelete = function (tree, valueToDelete) {
 			}
 			this.treeDelete(tree.right, valueToDelete);
 		}
-	} else {
-		this.cmd("SetText", 0, `Step 1: Element ${valueToDelete} not found in the tree`);
+		else {
+			// Step 3: Found node to delete
+			this.cmd("SetText", 0, `3) Found node to delete: ${tree.data}`);
+			this.cmd("Step");
+			
+			if (tree.left == null && tree.right == null) {
+				// Step 4: Leaf node case
+				this.cmd("SetText", 0, "4) Node is a leaf node, simply removing it");
+				this.cmd("Step");
+				
+				this.cmd("Delete", tree.graphicID);
+				this.cmd("Delete", tree.heightLabelID);
+				if (leftchild && tree.parent != null) {
+					tree.parent.left = null;
+				}
+				else if (tree.parent != null) {
+					tree.parent.right = null;
+				}
+				else {
+					this.treeRoot = null;
+				}
+			}
+			else if (tree.left == null) {
+				// Step 4: One child case (right)
+				this.cmd("SetText", 0, "4) Node has only right child, replacing with right child");
+				this.cmd("Step");
+				
+				if (tree.parent != null) {
+					this.cmd("Disconnect", tree.parent.graphicID, tree.graphicID);
+					this.cmd("Connect", tree.parent.graphicID, tree.right.graphicID, AVL.LINK_COLOR);
+					this.cmd("Step");
+					this.cmd("Delete", tree.graphicID);
+					this.cmd("Delete", tree.heightLabelID);
+					if (leftchild) {
+						tree.parent.left = tree.right;
+					}
+					else {
+						tree.parent.right = tree.right;
+					}
+					tree.right.parent = tree.parent;
+				}
+				else {
+					this.cmd("Delete", tree.graphicID);
+					this.cmd("Delete", tree.heightLabelID);
+					this.treeRoot = tree.right;
+					this.treeRoot.parent = null;
+				}
+			}
+			else if (tree.right == null) {
+				// Step 4: One child case (left)
+				this.cmd("SetText", 0, "4) Node has only left child, replacing with left child");
+				this.cmd("Step");
+				
+				if (tree.parent != null) {
+					this.cmd("Disconnect", tree.parent.graphicID, tree.graphicID);
+					this.cmd("Connect", tree.parent.graphicID, tree.left.graphicID, AVL.LINK_COLOR);
+					this.cmd("Step");
+					this.cmd("Delete", tree.graphicID);
+					this.cmd("Delete", tree.heightLabelID);
+					if (leftchild) {
+						tree.parent.left = tree.left;
+					}
+					else {
+						tree.parent.right = tree.left;
+					}
+					tree.left.parent = tree.parent;
+				}
+				else {
+					this.cmd("Delete", tree.graphicID);
+					this.cmd("Delete", tree.heightLabelID);
+					this.treeRoot = tree.left;
+					this.treeRoot.parent = null;
+				}
+			}
+			else {
+				// Step 4: Two children case
+				this.cmd("SetText", 0, "4) Node has two children, finding inorder successor");
+				this.cmd("Step");
+				
+				// Find inorder successor
+				this.highlightID = this.nextIndex++;
+				this.cmd("CreateHighlightCircle", this.highlightID, AVL.HIGHLIGHT_COLOR, tree.x, tree.y);
+				var tmp = tree.left;
+				this.cmd("Move", this.highlightID, tmp.x, tmp.y);
+				this.cmd("Step");
+				
+				while (tmp.right != null) {
+					tmp = tmp.right;
+					this.cmd("Move", this.highlightID, tmp.x, tmp.y);
+					this.cmd("Step");
+				}
+				
+				this.cmd("SetText", 0, `5) Found inorder successor: ${tmp.data}`);
+				this.cmd("Step");
+				
+				var labelID = this.nextIndex++;
+				this.cmd("CreateLabel", labelID, tmp.data, tmp.x, tmp.y);
+				tree.data = tmp.data;
+				this.cmd("Move", labelID, tree.x, tree.y);
+				this.cmd("SetText", 0, "6) Copying successor's value to current node");
+				this.cmd("Step");
+				
+				this.cmd("Delete", labelID);
+				this.cmd("SetText", tree.graphicID, tree.data);
+				this.cmd("Delete", this.highlightID);
+				
+				this.cmd("SetText", 0, "7) Deleting the successor node");
+				this.cmd("Step");
+				
+				if (tmp.left == null) {
+					if (tmp.parent != tree) {
+						tmp.parent.right = null;
+					}
+					else {
+						tree.left = null;
+					}
+					this.cmd("Delete", tmp.graphicID);
+					this.cmd("Delete", tmp.heightLabelID);
+				}
+				else {
+					if (tmp.parent != tree) {
+						this.cmd("Disconnect", tmp.parent.graphicID, tmp.graphicID);
+						this.cmd("Connect", tmp.parent.graphicID, tmp.left.graphicID, AVL.LINK_COLOR);
+						this.cmd("Step");
+						this.cmd("Delete", tmp.graphicID);
+						this.cmd("Delete", tmp.heightLabelID);
+						tmp.parent.right = tmp.left;
+						tmp.left.parent = tmp.parent;
+					}
+					else {
+						this.cmd("Disconnect", tree.graphicID, tmp.graphicID);
+						this.cmd("Connect", tree.graphicID, tmp.left.graphicID, AVL.LINK_COLOR);
+						this.cmd("Step");
+						this.cmd("Delete", tmp.graphicID);
+						this.cmd("Delete", tmp.heightLabelID);
+						tree.left = tmp.left;
+						tmp.left.parent = tree;
+					}
+				}
+			}
+			
+			// Step 8: Check balance
+			this.cmd("SetText", 0, "8) Checking balance factors after deletion");
+			this.cmd("Step");
+			
+			// Update heights and check balance
+			var current = tree;
+			while (current != null) {
+				if (this.getHeight(current) != Math.max(this.getHeight(current.left), this.getHeight(current.right)) + 1) {
+					current.height = Math.max(this.getHeight(current.left), this.getHeight(current.right)) + 1;
+					this.cmd("SetText", current.heightLabelID, current.height);
+				}
+				
+				var balance = this.getHeight(current.left) - this.getHeight(current.right);
+				if (Math.abs(balance) > 1) {
+					this.cmd("SetText", 0, `9) Balance factor at node ${current.data} is ${balance}, performing rotation`);
+					this.cmd("Step");
+					
+					if (balance > 1) {
+						if (this.getHeight(current.left.left) >= this.getHeight(current.left.right)) {
+							this.cmd("SetText", 0, "10) Performing LL rotation");
+							this.cmd("Step");
+							this.singleRotateRight(current);
+						}
+						else {
+							this.cmd("SetText", 0, "10) Performing LR rotation");
+							this.cmd("Step");
+							this.doubleRotateRight(current);
+						}
+					}
+					else {
+						if (this.getHeight(current.right.right) >= this.getHeight(current.right.left)) {
+							this.cmd("SetText", 0, "10) Performing RR rotation");
+							this.cmd("Step");
+							this.singleRotateLeft(current);
+						}
+						else {
+							this.cmd("SetText", 0, "10) Performing RL rotation");
+							this.cmd("Step");
+							this.doubleRotateLeft(current);
+						}
+					}
+				}
+				current = current.parent;
+			}
+			
+			this.cmd("SetText", 0, "11) Done");
+			this.resizeTree();
+		}
+	}
+	else {
+		this.cmd("SetText", 0, `Element ${valueToDelete} not found in the tree`);
 	}
 }
 
@@ -883,21 +886,17 @@ AVL.prototype.setNewPositions = function (tree, xPosition, yPosition, side) {
 		tree.y = yPosition;
 		if (side == -1) {
 			xPosition = xPosition - tree.rightWidth;
-			tree.heightLabelX = xPosition - 20;
-		}
-		else if (side == 1) {
+		} else if (side == 1) {
 			xPosition = xPosition + tree.leftWidth;
-			tree.heightLabelX = xPosition + 20;
-		}
-		else {
-			tree.heightLabelX = xPosition - 20;
 		}
 		tree.x = xPosition;
-		tree.heightLabelY = tree.y - 20;
-		this.setNewPositions(tree.left, xPosition, yPosition + AVL.HEIGHT_DELTA, -1)
-		this.setNewPositions(tree.right, xPosition, yPosition + AVL.HEIGHT_DELTA, 1)
+		tree.heightLabelX = xPosition;
+		tree.heightLabelY = yPosition - 20;
+		
+		// Recursively set positions for children with proper spacing
+		this.setNewPositions(tree.left, xPosition, yPosition + AVL.HEIGHT_DELTA, -1);
+		this.setNewPositions(tree.right, xPosition, yPosition + AVL.HEIGHT_DELTA, 1);
 	}
-
 }
 AVL.prototype.animateNewPositions = function (tree) {
 	if (tree != null) {
@@ -912,9 +911,9 @@ AVL.prototype.resizeWidths = function (tree) {
 	if (tree == null) {
 		return 0;
 	}
-	tree.leftWidth = Math.max(this.resizeWidths(tree.left), AVL.WIDTH_DELTA / 2);
-	tree.rightWidth = Math.max(this.resizeWidths(tree.right), AVL.WIDTH_DELTA / 2);
-	return tree.leftWidth + tree.rightWidth;
+	tree.leftWidth = Math.max(this.resizeWidths(tree.left), AVL.WIDTH_DELTA);
+	tree.rightWidth = Math.max(this.resizeWidths(tree.right), AVL.WIDTH_DELTA);
+	return Math.max(tree.leftWidth + tree.rightWidth, 2 * AVL.WIDTH_DELTA);
 }
 
 
@@ -968,3 +967,4 @@ function init() {
 	var animManag = initCanvas();
 	currentAlg = new AVL(animManag, canvas.width, canvas.height);
 }
+
