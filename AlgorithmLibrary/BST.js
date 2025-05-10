@@ -253,10 +253,14 @@ BST.prototype.insert = function (elem, tree) {
 	if (elem.data < tree.data) {
 		if (tree.left == null) {
 			this.cmd("SetText", 0, "Found null tree, inserting element");
-
 			this.cmd("SetHighlight", elem.graphicID, 0);
 			tree.left = elem;
 			elem.parent = tree;
+			// Position the new node properly before connecting
+			elem.x = tree.x - BST.WIDTH_DELTA;
+			elem.y = tree.y + BST.HEIGHT_DELTA;
+			this.cmd("Move", elem.graphicID, elem.x, elem.y);
+			this.cmd("Step");
 			this.cmd("Connect", tree.graphicID, elem.graphicID, BST.LINK_COLOR);
 		}
 		else {
@@ -273,10 +277,12 @@ BST.prototype.insert = function (elem, tree) {
 			this.cmd("SetHighlight", elem.graphicID, 0);
 			tree.right = elem;
 			elem.parent = tree;
-			this.cmd("Connect", tree.graphicID, elem.graphicID, BST.LINK_COLOR);
-			elem.x = tree.x + BST.WIDTH_DELTA / 2;
-			elem.y = tree.y + BST.HEIGHT_DELTA
+			// Position the new node properly before connecting
+			elem.x = tree.x + BST.WIDTH_DELTA;
+			elem.y = tree.y + BST.HEIGHT_DELTA;
 			this.cmd("Move", elem.graphicID, elem.x, elem.y);
+			this.cmd("Step");
+			this.cmd("Connect", tree.graphicID, elem.graphicID, BST.LINK_COLOR);
 		}
 		else {
 			this.cmd("CreateHighlightCircle", this.highlightID, BST.HIGHLIGHT_CIRCLE_COLOR, tree.x, tree.y);
@@ -286,8 +292,6 @@ BST.prototype.insert = function (elem, tree) {
 			this.insert(elem, tree.right);
 		}
 	}
-
-
 }
 
 BST.prototype.deleteElement = function (deletedValue) {
